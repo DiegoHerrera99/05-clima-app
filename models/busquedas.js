@@ -24,9 +24,13 @@ class Busquedas {
                 url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${lugar}.json`,
                 params: this.paramsMapbox
             })
-            console.log(response.data)
-
-            return [] //retornar los lugares
+            return response.data.features.map( ({ id, place_name_es, center }) => ({
+                    id,
+                    name: place_name_es,
+                    lng: center[0],
+                    lat: center[1],
+                })
+            )
 
         }catch(err){
             return []
